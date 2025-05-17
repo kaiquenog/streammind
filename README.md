@@ -1,6 +1,6 @@
-# 🎙️ Podcast Generator: Sistema Multi-Agente com Gemini
+# 🎙️ StreamMind: Sistema Multi-Agente Gerador de Podcasts
 
-![Banner Podcast Generator](https://img.shields.io/badge/🎙️%20Podcast%20Generator-Imersão%20IA%20Alura-6F57FF?style=for-the-badge)
+![Banner StreamMind](https://img.shields.io/badge/🎙️%20StreamMind-Imersão%20IA%20Alura-6F57FF?style=for-the-badge)
 
 Um sistema de geração de podcasts baseado em múltiplos agentes de IA, desenvolvido durante a Imersão IA &amp; Agents da Alura usando o SDK do Google para Gemini Agents.
 
@@ -10,7 +10,7 @@ Um sistema de geração de podcasts baseado em múltiplos agentes de IA, desenvo
 
 ## 📋 Índice
 
-- [🎙️ Podcast Generator: Sistema Multi-Agente com Gemini](#️-podcast-generator-sistema-multi-agente-com-gemini)
+- [🎙️ StreamMind: Sistema Multi-Agente Gerador de Podcasts](#️-streammind-sistema-multi-agente-gerador-de-podcasts)
   - [📋 Índice](#-índice)
   - [🚀 Sobre o Projeto](#-sobre-o-projeto)
   - [✨ Características](#-características)

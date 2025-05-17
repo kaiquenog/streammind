@@ -139,7 +139,7 @@ def agente_buscador_youtube(topico, data_de_hoje):
     
     buscador = Agent(
         name="agente_buscador_youtube",
-        model="gemini-2.0-flash",
+        model="gemini-1.5-flash-latest",
         instruction=f"""
                      Você é um assistente de busca especializado. Sua ÚNICA tarefa é encontrar URLs de vídeos de podcast no YouTube sobre "{topico}" que sejam recentes (publicados nos últimos 3 meses a partir de {data_de_hoje}).
                      
