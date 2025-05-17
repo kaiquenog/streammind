@@ -75,11 +75,41 @@ def to_markdown(text):
 
 def extract_video_id(url):
     """Extrair o ID do vídeo da URL do YouTube de forma mais robusta"""
-    youtube_regex = r'(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})'
-    match = re.search(youtube_regex, url)
-    if match:
-        return match.group(1)
-    return None
+    # Padrão para URL completa (watch?v=XXXXXXXXXXX)
+    if "youtube.com/watch?v=" in url:
+        try:
+            video_id = url.split("v=")[1]
+            # Remover parâmetros adicionais após o ID
+            ampersand_pos = video_id.find('&')
+            if ampersand_pos != -1:
+                video_id = video_id[:ampersand_pos]
+            return video_id if len(video_id) == 11 else None
+        except:
+            return None
+    
+    # Padrão para URL encurtada (youtu.be/XXXXXXXXXXX)
+    elif "youtu.be/" in url:
+        try:
+            video_id = url.split("youtu.be/")[1]
+            # Remover parâmetros adicionais após o ID
+            slash_pos = video_id.find('/')
+            if slash_pos != -1:
+                video_id = video_id[:slash_pos]
+            question_pos = video_id.find('?')
+            if question_pos != -1:
+                video_id = video_id[:question_pos]
+            return video_id if len(video_id) == 11 else None
+        except:
+            return None
+            
+    # Usar regex como backup
+    else:
+        youtube_regex = r'(?:youtube\.com\/(?:[^\/\n\s]+\/\S+\/|(?:v|e(?:mbed)?)\/|\S*?[?&]v=)|youtu\.be\/)([a-zA-Z0-9_-]{11})'
+        match = re.search(youtube_regex, url)
+        if match:
+            return match.group(1)
+    
+    return Nones
 
 def main():
     print("🚀 Iniciando o Sistema de Geração de Podcast com Agentes 🚀")
@@ -96,7 +126,12 @@ def main():
     print("\n🔍 PASSO 1: Buscando podcasts relevantes no YouTube...")
     urls = agente_buscador_youtube(topico, data_de_hoje)
     
-    if not urls or urls[0] == "Nenhum podcast relevante encontrado.":
+    # Verificação melhorada
+    if not urls:
+        print("❌ Não foram encontradas URLs de podcasts.")
+        return
+    
+    if urls[0] == "Nenhum podcast relevante encontrado.":
         print("❌ Não foi possível encontrar podcasts relevantes sobre este tópico.")
         return
     
@@ -108,9 +143,9 @@ def main():
     print("\n🎯 PASSO 2: Obtendo transcrições dos podcasts...")
     transcripts = agente_transcritor(urls)
     
-    if transcripts == "Nenhuma transcrição pôde ser obtida.":
+    if not transcripts or transcripts == "Nenhuma transcrição pôde ser obtida.":
         print("❌ Não foi possível obter transcrições para nenhum dos podcasts encontrados.")
-        return
+        returns
     
     # Passo 3: Resumir as transcrições
     print("\n📝 PASSO 3: Resumindo as transcrições...")
@@ -139,7 +174,7 @@ def agente_buscador_youtube(topico, data_de_hoje):
     
     buscador = Agent(
         name="agente_buscador_youtube",
-        model="gemini-1.5-flash-latest",
+        model="gemini-2.0-flash",
         instruction=f"""
                      Você é um assistente de busca especializado. Sua ÚNICA tarefa é encontrar URLs de vídeos de podcast no YouTube sobre "{topico}" que sejam recentes (publicados nos últimos 3 meses a partir de {data_de_hoje}).
                      
@@ -153,7 +188,7 @@ def agente_buscador_youtube(topico, data_de_hoje):
                      
                      NÃO invente URLs. NÃO forneça resumos ou descrições. Sua resposta deve ser APENAS a lista de URLs ou a frase "Nenhum podcast relevante encontrado.".
                      """,
-        description="Agente que busca videoss sobre um tópico no YouTube usando a busca do Google.",
+        description="Agente que busca videos sobre um tópico no YouTube usando a busca do Google.",
         tools=[google_search]
     )
 
@@ -165,16 +200,29 @@ def agente_buscador_youtube(topico, data_de_hoje):
     urls_encontradas = []
     for linha in resultado.strip().split('\n'):
         linha = linha.strip()
-        if linha.startswith('https://www.youtube.com/') or linha.startswith('https://youtu.be/'):
-            urls_encontradas.append(linha)
+        # Remover caracteres não desejados como * e espaços
+        linha = linha.replace('*', '').strip()
+        
+        # Verificar se é uma URL do YouTube válida
+        if (linha.startswith('https://www.youtube.com/watch?v=') or 
+            linha.startswith('https://youtu.be/')) and len(linha) < 100:  # Verificação de comprimento razoável
+            # Verificar se o ID do vídeo parece válido (11 caracteres após v=)
+            video_id = extract_video_id(linha)
+            if video_id and len(video_id) == 11:  # IDs do YouTube têm 11 caracteres
+                urls_encontradas.append(linha)
         elif "Nenhum podcast relevante encontrado" in linha:
             return ["Nenhum podcast relevante encontrado."]
     
+    # Verificar se encontramos URLs válidas
     if not urls_encontradas:
         return ["Nenhum podcast relevante encontrado."]
     
+    # Imprimir para depuração
+    print(f"URLs válidas encontradas: {len(urls_encontradas)}")
+    for url in urls_encontradas:
+        print(f" - {url}")
+    
     return urls_encontradas[:5]  # Limitando a 5 URLs no máximo
-
 ###########################################
 # --- Agente 2: Transcritor de Vídeos --- #
 ###########################################
