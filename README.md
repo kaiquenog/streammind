@@ -26,18 +26,18 @@ Um sistema de geração de podcasts baseado em múltiplos agentes de IA, desenvo
 
 ## 🚀 Sobre o Projeto
 
-Este projeto foi desenvolvido como parte do desafio da Imersão IA & Agents da Alura. A proposta é utilizar agentes inteligentes com o SDK do Gemini para automatizar a curadoria e síntese de conteúdos sobre Inteligência Artificial disponíveis em vídeos do YouTube. O sistema busca vídeos populares e recentes sobre IA, transcreve e resume os conteúdos, e por fim, gera um novo podcast com os principais insights, facilitando a atualização sobre o tema de forma rápida e acessível.s
+Este projeto foi desenvolvido como parte do desafio da Imersão IA & Agents da Alura. A proposta é utilizar agentes inteligentes com o SDK do Gemini para automatizar a curadoria e síntese de conteúdos sobre Inteligência Artificial disponíveis em vídeos do YouTube. O sistema busca vídeos populares e recentes sobre IA, transcreve e resume os conteúdos, e por fim, gera um novo podcast com os principais insights, facilitando a atualização sobre o tema de forma rápida e acessível.
 
 ### 🎯 Objetivo Final
 
-O objetivo final deste projeto era criar uma experiência similar ao NotebookLM da Google - uma ferramenta que não apenas gera conteúdo textual, mas também o converte em áudio de podcast com qualidade profissional. Embora a parte de síntese de voz não tenha sido completamente implementada devido à falta de referências específicas sobre a API do NotebookL.
+O objetivo final deste projeto era criar uma experiência similar ao NotebookLM da Google - uma ferramenta que não apenas gera conteúdo textual, mas também o converte em áudio, o objetivo final é de criar um podcast com qualidade profissional. Este objetivo ainda não foi alcançado com a implementação da síntese de voz usando a biblioteca gTTS (Google Text-to-Speech), que converte o script gerado em um arquivo de áudio MP3.
 
 O sistema utiliza uma arquitetura de múltiplos agentes especializados que trabalham em conjunto para:
 1. Descobrir podcasts relevantes no YouTube
-2. Obter e processar suas transcrições
-3. Resumir o conteúdo extraindo os pontos-chave
-4. Sintetizar um novo roteiro de podcast original
-5. (Em desenvolvimento) Converter o script em áudio de podcast
+2. Extrair e processar suas transcrições
+3. Resumir os principais insights
+4. Sintetizar um novo script de podcast original
+5. Converter o script em áudio usando síntese de voz de podcast
 
 ## ✨ Características
 
@@ -46,7 +46,7 @@ O sistema utiliza uma arquitetura de múltiplos agentes especializados que traba
 - 📊 **Resumo Avançado Focado**: Extrai os pontos-chave e insights mais importantes de cada fonte com foco em IA e Agentes
 - 📚 **Síntese Criativa Estruturada**: Gera um script completo para um novo podcast, com seções bem definidas e conteúdo coeso
 - 💾 **Exportação em Markdown**: Salva o script final em formato Markdown para fácil edição
-- 🔊 **Síntese de Voz (Em desenvolvimento)**: Estrutura preparada para conversão do script em áudio de podcast, similar ao NotebookLM da Google
+- 🔊 **Síntese de Voz**: Converte o script em áudio de podcast usando gTTS (Google Text-to-Speech)
 
 ## 🔄 Arquitetura de Agentes
 
@@ -78,10 +78,11 @@ O sistema utiliza cinco agentes especializados que trabalham em sequência, cada
    - Estrutura: Título, Introdução, Desenvolvimento, Tendências e Futuro, Conclusão
    - Metadados: Adiciona informações como data de geração ao script final
 
-5. **Agente Sintetizador de Voz** (`speech_synthesis_agent.py`) 🔊 *(Em desenvolvimento)*
+5. **Agente Sintetizador de Voz** (`speech_synthesis_agent.py`) 🔊
    - Função: Converter o script do podcast em áudio
-   - Status: Implementação parcial, preparado para integração com APIs de síntese de voz
-   - Integração: Código comentado para implementação futura com gTTS (Google Text-to-Speech)
+   - Status: Implementado e funcional
+   - Integração: Utiliza a biblioteca gTTS (Google Text-to-Speech) para gerar arquivos MP3
+   - Próximos passos: Melhorar a qualidade do áudio para se aproximar do padrão NotebookLM
 
 ## 📦 Requisitos e Instalação
 
@@ -122,17 +123,16 @@ python main.py
    - Obtendo transcrições em vários idiomas
    - Resumindo o conteúdo com foco em IA e Agentes
    - Gerando o script estruturado do podcast
-   - (Opcional) Tentando gerar áudio do podcast
+   - Convertendo o script em áudio de podcast usando gTTS
 
-4. O resultado final (script) será exibido na tela e salvo em um arquivo markdown.
+4. O resultado final (script e áudio) será exibido na tela e salvo em arquivos markdown e MP3.
 
-5. Para habilitar a funcionalidade completa de síntese de voz:
-   - Edite o arquivo `agents/speech_synthesis_agent.py`
-   - Descomente e adapte o código no método `agente_sintetizador_voz`
-   - Instale a biblioteca gTTS: `pip install gtts`
-   - Ou integre com outras APIs de síntese de voz como Google Text-to-Speech, Amazon Polly, etc.
+5. Para melhorar a qualidade do áudio no futuro:
+   - Explore outras APIs de síntese de voz com qualidade profissional
+   - Considere implementar opções de vozes diferentes
+   - Adicione efeitos sonoros e música de fundo
 
-6. Estrutura do projeto refatorado:
+6. Estrutura do projeto:
 ```
 streamMind/
 ├── agents/               # Pasta com os agentes individuais
@@ -147,7 +147,6 @@ streamMind/
 │   ├── common.py              # Funções comuns (extract_video_id, etc)
 │   └── agent_communication.py   # Funções para comunicação com agentes
 ├── main.py              # Script original
-├── main_refactored.py    # Script principal refatorado
 └── README.md            # Documentação
 ```
 
@@ -158,8 +157,8 @@ streamMind/
 - **Youtube Transcript API**: Para extração de legendas/transcrições de vídeos em múltiplos idiomas
 - **Python**: Linguagem de programação principal com arquitetura modular
 - **Markdown**: Formato de saída para scripts gerados
-- **gTTS (Google Text-to-Speech)**: Sugerido para implementação da síntese de voz (código comentado)
-- **NotebookLM (Referência)**: Inspiração para o objetivo final de geração de áudio de podcast
+- **gTTS (Google Text-to-Speech)**: Utilizado para converter o texto do podcast em áudio MP3
+- **NotebookLM (Referência)**: Inspiração para o objetivo final de geração de áudio de podcast com qualidade profissional
 
 ## 🧠 Aprendizados
 
@@ -181,6 +180,7 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 ## 👤 Autor
 
 Desenvolvido como parte do desafio da Imersão IA &amp; Agents da Alura.
+[Kaique Nogueira](https://www.linkedin.com/in/kaique-nogueira-b11b345b/)
 
 ---
 

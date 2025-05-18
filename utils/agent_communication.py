@@ -4,7 +4,7 @@ from google.adk.sessions import InMemorySessionService
 from google.genai import types
 
 def call_agent(agent: Agent, message_text: str) -> str:
-    """Funu00e7u00e3o para chamar um agente e obter sua resposta"""
+    """Funcão para chamar um agente e obter sua resposta"""
     session_service = InMemorySessionService()
     session = session_service.create_session(app_name=agent.name, user_id="user1", session_id="session1")
     runner = Runner(agent=agent, app_name=agent.name, session_service=session_service)
@@ -42,7 +42,7 @@ def call_agent(agent: Agent, message_text: str) -> str:
 
 
         if event.is_final_response():
-          print("DEBUG: Evento u00e9 resposta final.")
+          print("DEBUG: Evento é resposta final.")
           if event.content and event.content.parts:
               for part in event.content.parts:
                 if part.text is not None:
