@@ -14,16 +14,8 @@ def agente_sintetizador_voz(script_texto):
     print("Tentando gerar áudio a partir do script...")
     
     try:
-        # Nota: Aqui seria implementada a integração com uma API de síntese de voz
-        # Como o NotebookLM da Google
         
         print("⚠️ Funcionalidade de síntese de voz não implementada completamente")
-        print("ℹ️ Esta funcionalidade requer integração com APIs específicas de síntese de voz")
-        
-        # Exemplo de como seria a implementação com a biblioteca gTTS (Google Text-to-Speech)
-        # Descomente o código abaixo e instale a biblioteca com: pip install gtts
-        
-        
         
         # Extrair apenas o texto sem formatação markdown para a síntese de voz
         texto_limpo = re.sub(r'#+ |\*\*|\*|`|_|\[|\]\(.*?\)', '', script_texto)

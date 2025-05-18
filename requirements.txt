@@ -1,0 +1,22 @@
+# Core dependencies for StreamMind project
+
+# Google AI and Gemini
+google-adk==0.5.0
+google-generativeai==0.8.5
+google-genai==1.15.0
+
+# YouTube transcript processing
+youtube-transcript-api==1.0.3
+youtube-search-python==1.6.6
+
+# Environment variables management
+python-dotenv==1.1.0
+
+# Speech synthesis
+gTTS==2.5.4
+
+# Display and formatting
+ipython==9.2.0
+
+# HTTP and requests
+requests==2.32.3
