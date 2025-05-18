@@ -30,7 +30,7 @@ Este projeto foi desenvolvido como parte do desafio da Imersão IA & Agents da A
 
 ### 🎯 Objetivo Final
 
-O objetivo final deste projeto era criar uma experiência similar ao NotebookLM da Google - uma ferramenta que não apenas gera conteúdo textual, mas também o converte em áudio de podcast com qualidade profissional. Embora a parte de síntese de voz não tenha sido completamente implementada devido à falta de referências específicas sobre a API do NotebookLM, a estrutura do sistema foi projetada para permitir essa integração no futuro.
+O objetivo final deste projeto era criar uma experiência similar ao NotebookLM da Google - uma ferramenta que não apenas gera conteúdo textual, mas também o converte em áudio de podcast com qualidade profissional. Embora a parte de síntese de voz não tenha sido completamente implementada devido à falta de referências específicas sobre a API do NotebookL.
 
 O sistema utiliza uma arquitetura de múltiplos agentes especializados que trabalham em conjunto para:
 1. Descobrir podcasts relevantes no YouTube
@@ -112,7 +112,7 @@ pip install google-generativeai dotenv youtube-transcript-api
 
 1. Execute o script principal refatorado:
 ```bash
-python main_refactored.py
+python main.py
 ```
 
 2. Digite o tópico desejado para o podcast quando solicitado (exemplo: "IA e Agents de IA")
