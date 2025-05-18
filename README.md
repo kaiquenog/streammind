@@ -81,8 +81,9 @@ O sistema utiliza cinco agentes especializados que trabalham em sequência, cada
 5. **Agente Sintetizador de Voz** (`speech_synthesis_agent.py`) 🔊
    - Função: Converter o script do podcast em áudio
    - Status: Implementado e funcional
+   - Recursos avançados: Utiliza pydub e ffmpeg para criar transições, introdução e conclusão
    - Integração: Utiliza a biblioteca gTTS (Google Text-to-Speech) para gerar arquivos MP3
-   - Próximos passos: Melhorar a qualidade do áudio para se aproximar do padrão NotebookLM
+   - Tratamento de erros: Detecta automaticamente se ffmpeg está instalado e oferece uma versão simplificada quando não está disponível
 
 ## 📦 Requisitos e Instalação
 
@@ -91,6 +92,7 @@ O sistema utiliza cinco agentes especializados que trabalham em sequência, cada
 - Python 3.8+
 - Acesso à API do Google Gemini
 - Conexão com internet
+- ffmpeg (para recursos avançados de áudio)
 
 ### Instalação:
 
@@ -100,12 +102,17 @@ git clone https://github.com/seu-usuario/podcast-generator.git
 cd podcast-generator
 ```
 
-2. Instale as dependências:
+2. Instale as dependências Python:
 ```bash
-pip install google-generativeai dotenv youtube-transcript-api
+pip install -r requirements.txt
 ```
 
-3. Configure sua chave de API:
+3. Instale o ffmpeg (opcional, mas recomendado para recursos avançados de áudio):
+   - Ubuntu/Debian: `sudo apt-get install ffmpeg`
+   - macOS (com Homebrew): `brew install ffmpeg`
+   - Windows: Baixe do site oficial ou use o gerenciador de pacotes Chocolatey
+
+4. Configure sua chave de API:
    - Crie um arquivo `.env` na raiz do projeto
    - Adicione sua chave API: `GOOGLE_API_KEY=sua_chave_aqui`
 
@@ -123,14 +130,15 @@ python main.py
    - Obtendo transcrições em vários idiomas
    - Resumindo o conteúdo com foco em IA e Agentes
    - Gerando o script estruturado do podcast
-   - Convertendo o script em áudio de podcast usando gTTS
+   - Convertendo o script em áudio de podcast com formato profissional
 
 4. O resultado final (script e áudio) será exibido na tela e salvo em arquivos markdown e MP3.
 
-5. Para melhorar a qualidade do áudio no futuro:
-   - Explore outras APIs de síntese de voz com qualidade profissional
-   - Considere implementar opções de vozes diferentes
-   - Adicione efeitos sonoros e música de fundo
+5. Recursos avançados de áudio (quando ffmpeg está instalado):
+   - Introdução e conclusão profissionais
+   - Divisão do podcast em seções com anúncios de transição
+   - Pausas apropriadas entre seções para melhor ritmo
+   - Detecção automática de título e estrutura do podcast
 
 6. Estrutura do projeto:
 ```
@@ -153,11 +161,13 @@ streamMind/
 ## 🔧️ Tecnologias Utilizadas
 
 - **Google ADK for Agents**: Framework para criação e gerenciamento de agentes de IA
-- **Google Gemini Models**: Modelos de IA utilizados pelos agentes (principalmente o 2.5-pro-preview-03-25)
+- **Google Gemini Models**: Modelos de IA utilizados pelos agentes (gemini-2.5-pro-preview e gemini-2.0-flash)
 - **Youtube Transcript API**: Para extração de legendas/transcrições de vídeos em múltiplos idiomas
 - **Python**: Linguagem de programação principal com arquitetura modular
 - **Markdown**: Formato de saída para scripts gerados
 - **gTTS (Google Text-to-Speech)**: Utilizado para converter o texto do podcast em áudio MP3
+- **pydub**: Biblioteca para processamento avançado de áudio e criação de transições
+- **ffmpeg**: Ferramenta para manipulação de áudio e vídeo, utilizada pelo pydub
 - **NotebookLM (Referência)**: Inspiração para o objetivo final de geração de áudio de podcast com qualidade profissional
 
 ## 🧠 Aprendizados
@@ -172,6 +182,10 @@ Este projeto demonstra:
 - Aplicação de LLMs na geração de conteúdo estruturado
 - Integração com APIs externas para enriquecimento de dados
 - Tratamento de erros robusto em cada etapa do processo
+- Detecção automática de dependências do sistema (ffmpeg)
+- Implementação de mecanismos de fallback para garantir funcionalidade básica
+- Processamento avançado de áudio para criação de podcasts com qualidade profissional
+- Adaptação dinâmica baseada nos recursos disponíveis no ambiente de execução
 
 ## 📝 Licença
 

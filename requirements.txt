@@ -14,7 +14,7 @@ python-dotenv==1.1.0
 
 # Speech synthesis
 gTTS==2.5.4
-pydub==0.25.1
+pydub==0.25.1  # Requires ffmpeg to be installed on the system
 
 # Display and formatting
 ipython==9.2.0

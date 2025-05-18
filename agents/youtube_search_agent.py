@@ -9,6 +9,7 @@ def agente_buscador_youtube(topico, data_de_hoje):
     
     # Tentar diferentes consultas de busca para maximizar as chances de encontrar resultados
     consultas = [
+        f"{topico}",
         f"podcasts YouTube {topico} 2025",
         f"entrevista YouTube {topico} recente",
         f"vídeo podcast {topico} YouTube",
@@ -23,7 +24,7 @@ def agente_buscador_youtube(topico, data_de_hoje):
         
         buscador = Agent(
             name="agente_buscador_youtube",
-            model="gemini-2.5-pro-preview-03-25",
+            model="gemini-2.0-flash",
             instruction=f"""
                          Você é um assistente de busca especializado em encontrar vídeos no YouTube.
                          
