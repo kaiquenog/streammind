@@ -21,3 +21,7 @@ ipython==9.2.0
 
 # HTTP and requests
 requests==2.32.3
+
+# CLI e feedback de progresso
+typer
+tqdm

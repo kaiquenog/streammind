@@ -1,5 +1,6 @@
 from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound, TranscriptsDisabled
 from utils.common import extract_video_id
+from tqdm import tqdm
 
 def agente_transcritor(youtube_urls):
     """Agente que transcreve vídeos do YouTube"""
@@ -7,7 +8,7 @@ def agente_transcritor(youtube_urls):
     transcripts = []
     urls_processadas = 0
     
-    for i, url in enumerate(youtube_urls, 1):
+    for i, url in enumerate(tqdm(youtube_urls, desc="Transcrevendo vídeos"), 1):
         if "Nenhum podcast relevante encontrado" in url:
             continue
             

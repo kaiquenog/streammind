@@ -3,7 +3,7 @@ from google.adk.tools import google_search
 from utils.agent_communication import call_agent
 from utils.common import extract_video_id
 
-def agente_buscador_youtube(topico, data_de_hoje):
+def agente_buscador_youtube(topico, data_de_hoje, max_results=5):
     """Agente que busca podcasts no YouTube sobre um tópico específico"""
     print("Buscando podcasts no YouTube...")
     
@@ -94,7 +94,7 @@ def agente_buscador_youtube(topico, data_de_hoje):
         print(f"URLs encontradas nesta busca: {len(urls_desta_busca)}")
         
         # Se já temos URLs suficientes, podemos parar
-        if len(todas_urls) >= 5:
+        if len(todas_urls) >= max_results:
             break
     
     # Verificar se encontramos URLs válidas
@@ -107,4 +107,4 @@ def agente_buscador_youtube(topico, data_de_hoje):
     for i, url in enumerate(todas_urls, 1):
         print(f" {i}. {url}")
     
-    return todas_urls[:5]  # Limitando a 5 URLs no máximo
+    return todas_urls[:max_results]

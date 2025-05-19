@@ -118,12 +118,15 @@ pip install -r requirements.txt
 
 ## 🎯 Como Usar
 
-1. Execute o script principal refatorado:
+1. Execute o CLI para gerar o podcast em Markdown e áudio:
 ```bash
-python main.py
+python main.py generate --topic "IA e Agents de IA" --max-videos 5 --output-dir ./out
 ```
 
-2. Digite o tópico desejado para o podcast quando solicitado (exemplo: "IA e Agents de IA")
+2. (Opcional) para gerar apenas o script sem áudio:
+```bash
+python main.py generate --topic "IA e Agents de IA" --max-videos 5 --output-dir ./out --no-audio
+```
 
 3. O sistema vai executar automaticamente:
    - Buscando podcasts relevantes usando múltiplas consultas
